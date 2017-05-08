@@ -8,7 +8,7 @@ module Funky
   module Connection
     class API < Base
       def self.fetch_all(path_query)
-        uri = URI "https://#{host}/v2.8/#{path_query}&limit=100&access_token=#{app_id}%7C#{app_secret}"
+        uri = URI "https://#{host}/v2.9/#{path_query}&limit=100&access_token=#{app_id}%7C#{app_secret}"
         fetch_data_with_paging_token(uri)
       end
 
@@ -16,7 +16,7 @@ module Funky
         json = json_for(uri)
         if !json[:data].empty? && json[:paging][:next]
           next_paging_uri = URI json[:paging][:next]
-          puts "Fetching '#{uri.path}' with #{ URI.decode_www_form(next_paging_uri.query).to_h["__paging_token"] }"
+          puts "Fetching '#{uri.path}' with #{ URI.decode_www_form(next_paging_uri.query).to_h['after'] }"
           json[:data] + fetch_data_with_paging_token(next_paging_uri)
         else
           json[:data]
