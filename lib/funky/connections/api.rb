@@ -14,6 +14,7 @@ module Funky
 
       def self.fetch_multiple_pages(uri)
         json = json_for(uri)
+        puts "Fetching '#{uri.path}' until #{ URI.decode_www_form(uri.query).to_h['until'] || 'now'}"
         if json[:data].empty?
           @try_count ||= 0
           if @previous_timestamp && @try_count < 1 && (Date.parse @previous_timestamp rescue nil)
