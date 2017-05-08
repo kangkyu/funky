@@ -14,9 +14,9 @@ module Funky
 
       def self.fetch_data_with_paging_token(uri)
         json = json_for(uri)
-        puts "Fetching '#{uri.path}' until #{ URI.decode_www_form(uri.query).to_h['until'] || 'now'}"
         if !json[:data].empty? && json[:paging][:next]
           next_paging_uri = URI json[:paging][:next]
+          puts "Fetching '#{uri.path}' with #{ URI.decode_www_form(next_paging_uri.query).to_h["__paging_token"] }"
           json[:data] + fetch_data_with_paging_token(next_paging_uri)
         else
           json[:data]
