@@ -6,9 +6,17 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.3.0  - Unreleased
+
+**How to upgrade**
+
+If your code calls `Funky::Video#find` for existing video but without counters,
+it used to return a video object with `nil` values. Now it will return its
+own `Funky::CountersNotFound` error instead, so it should be handled properly.
+
 ## 0.2.32 - 2018/06/07
 
-* [FEATURE] Raise Funky::CountersNotFound error when a video does not have
+* [FEATURE] Raise `Funky::CountersNotFound` error when a video does not have
 its view count.
 
 ## 0.2.31 - 2017/10/25
